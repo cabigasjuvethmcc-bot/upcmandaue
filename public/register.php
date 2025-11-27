@@ -18,6 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $email = filter_var(trim($_POST['email'] ?? ''), FILTER_VALIDATE_EMAIL) ?: '';
         $password = $_POST['password'] ?? '';
         $passwordConfirm = $_POST['password_confirm'] ?? '';
+        $role = $_POST['role'] ?? 'user';
 
         if ($name === '') {
             $errors[] = 'Name is required.';
@@ -35,8 +36,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $errors[] = 'Passwords do not match.';
         }
 
+        if ($role !== 'admin' && $role !== 'editor' && $role !== 'user') {
+            $errors[] = 'Invalid role selected.';
+        }
+
         if (!$errors) {
-            if (!register_user($name, $email, $password)) {
+            if (!register_user($name, $email, $password, $role)) {
                 $errors[] = 'Could not register. Email may already be in use.';
             } else {
                 $success = true;
@@ -87,6 +92,15 @@ include __DIR__ . '/../includes/header.php';
         <div class="form-group">
             <label for="password_confirm">Confirm Password</label>
             <input type="password" id="password_confirm" name="password_confirm" required>
+        </div>
+
+        <div class="form-group">
+            <label for="role">Role</label>
+            <select id="role" name="role" required>
+                <option value="user">User</option>
+                <option value="editor">Editor</option>
+                <option value="admin">Admin</option>
+            </select>
         </div>
 
         <button type="submit" class="btn-primary">Register</button>
