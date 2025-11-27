@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/../../includes/auth.php';
 
-require_login();
+require_admin_or_editor();
 
 include __DIR__ . '/../../includes/header.php';
 
