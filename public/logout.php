@@ -6,5 +6,7 @@ require_once __DIR__ . '/../includes/auth.php';
 
 logout();
 
-header('Location: /upcmandaue/public/index.php');
+global $config;
+$baseUrl = $config['app']['base_url'] ?? '';
+header('Location: ' . $baseUrl . '/index.php');
 exit;
