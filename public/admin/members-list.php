@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 require_once __DIR__ . '/../../includes/auth.php';
-require_login();
+require_admin_or_editor();
 require_once __DIR__ . '/../../includes/functions.php';
 
 $pdo = get_pdo();
@@ -52,4 +52,3 @@ include __DIR__ . '/../../includes/header.php';
 </section>
 
 <?php include __DIR__ . '/../../includes/footer.php'; ?>
-
