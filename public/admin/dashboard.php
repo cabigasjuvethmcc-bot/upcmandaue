@@ -35,6 +35,15 @@ include __DIR__ . '/../../includes/header.php';
                 <li><a class="dashboard-link" href="bible-study-groups.php">Bible Study Groups</a></li>
             </ul>
         </article>
+        <?php if (current_user_role() === 'admin'): ?>
+            <article class="dashboard-card">
+                <h2>User Management</h2>
+                <p class="page-content">Create additional user accounts for site administration.</p>
+                <ul class="dashboard-links">
+                    <li><a class="dashboard-link" href="../register.php">Create User</a></li>
+                </ul>
+            </article>
+        <?php endif; ?>
     </div>
 </section>
 
