@@ -21,7 +21,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (!attempt_login($email, $password)) {
                 $errors[] = 'Invalid credentials.';
             } else {
-                header('Location: /upcmandaue/public/admin/dashboard.php');
+                global $config;
+                $baseUrl = $config['app']['base_url'] ?? '';
+                header('Location: ' . $baseUrl . '/admin/dashboard.php');
                 exit;
             }
         }
