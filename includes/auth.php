@@ -58,7 +58,22 @@ function require_admin_or_editor(): void
 
     if ($role !== 'admin' && $role !== 'editor') {
         $baseUrl = $config['app']['base_url'];
-        header('Location: ' . $baseUrl . '/index.php');
+        header('Location: ' . $baseUrl . '/access-denied.php');
+        exit;
+    }
+}
+
+function require_admin(): void
+{
+    global $config;
+
+    require_login();
+
+    $role = current_user_role();
+
+    if ($role !== 'admin') {
+        $baseUrl = $config['app']['base_url'];
+        header('Location: ' . $baseUrl . '/access-denied.php');
         exit;
     }
 }
@@ -85,13 +100,14 @@ function register_user(string $name, string $email, string $password): bool
 
     $hash = password_hash($password, PASSWORD_DEFAULT);
 
-    $stmt = $pdo->prepare('INSERT INTO users (name, email, password_hash) VALUES (:name, :email, :password_hash)');
+    $stmt = $pdo->prepare('INSERT INTO users (name, email, password_hash, role) VALUES (:name, :email, :password_hash, :role)');
 
     try {
         $stmt->execute([
             'name' => $name,
             'email' => $email,
             'password_hash' => $hash,
+            'role' => 'user',
         ]);
     } catch (PDOException $e) {
         return false;
