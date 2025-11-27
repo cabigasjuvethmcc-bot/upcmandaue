@@ -35,6 +35,34 @@ function require_login(): void
     }
 }
 
+function current_user_role(): ?string
+{
+    ensure_session_started();
+
+    if (!isset($_SESSION['user_role'])) {
+        return null;
+    }
+
+    $role = (string) $_SESSION['user_role'];
+
+    return $role !== '' ? $role : null;
+}
+
+function require_admin_or_editor(): void
+{
+    global $config;
+
+    require_login();
+
+    $role = current_user_role();
+
+    if ($role !== 'admin' && $role !== 'editor') {
+        $baseUrl = $config['app']['base_url'];
+        header('Location: ' . $baseUrl . '/index.php');
+        exit;
+    }
+}
+
 function find_user_by_email(string $email): ?array
 {
     $pdo = get_pdo();
@@ -80,7 +108,7 @@ function attempt_login(string $email, string $password): bool
         return false;
     }
 
-    if (!password_verify($password, $user['password_hash']) && $password !== $user['password_hash']) {
+    if (!password_verify($password, $user['password_hash'])) {
         return false;
     }
 
