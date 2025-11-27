@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: upcmandaue
+    env: docker
+    plan: free
+    autoDeploy: true
+
+    envVars:
+      - key: APP_BASE_URL
+        value: https://upcmandaue.onrender.com
