@@ -10,7 +10,7 @@ services:
         value: https://upcmandaue.onrender.com
 
       - key: DB_HOST
-        value: crossover.proxy.rlay.net       
+        value: crossover.proxy.rlwy.net       
       - key: DB_PORT
         value: "57145"                      
       - key: DB_NAME
