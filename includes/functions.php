@@ -35,7 +35,7 @@ function verify_csrf_token(?string $token): bool
 
 function sanitize_string(string $value): string
 {
-    return trim(filter_var($value, FILTER_SANITIZE_STRING));
+    return trim(strip_tags($value));
 }
 
 function get_page_by_slug(string $slug): ?array
