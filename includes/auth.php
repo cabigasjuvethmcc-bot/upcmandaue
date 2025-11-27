@@ -94,7 +94,7 @@ function find_user_by_email(string $email): ?array
     return $user;
 }
 
-function register_user(string $name, string $email, string $password): bool
+function register_user(string $name, string $email, string $password, string $role = 'user'): bool
 {
     $pdo = get_pdo();
 
@@ -103,11 +103,15 @@ function register_user(string $name, string $email, string $password): bool
     $stmt = $pdo->prepare('INSERT INTO users (name, email, password_hash, role) VALUES (:name, :email, :password_hash, :role)');
 
     try {
+        $allowedRoles = ['admin', 'editor', 'user'];
+        if (!in_array($role, $allowedRoles, true)) {
+            $role = 'user';
+        }
         $stmt->execute([
             'name' => $name,
             'email' => $email,
             'password_hash' => $hash,
-            'role' => 'user',
+            'role' => $role,
         ]);
     } catch (PDOException $e) {
         return false;
