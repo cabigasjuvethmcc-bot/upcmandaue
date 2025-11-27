@@ -36,7 +36,10 @@ $baseUrl = $config['app']['base_url'];
                 <li><a href="<?= htmlspecialchars($baseUrl, ENT_QUOTES) ?>/about.php">About</a></li>
                 <li><a href="<?= htmlspecialchars($baseUrl, ENT_QUOTES) ?>/contact.php">Contact</a></li>
                 <?php if (is_logged_in()): ?>
-                    <li><a href="<?= htmlspecialchars($baseUrl, ENT_QUOTES) ?>/admin/dashboard.php">Dashboard</a></li>
+                    <?php $role = current_user_role(); ?>
+                    <?php if ($role === 'admin' || $role === 'editor'): ?>
+                        <li><a href="<?= htmlspecialchars($baseUrl, ENT_QUOTES) ?>/admin/dashboard.php">Dashboard</a></li>
+                    <?php endif; ?>
                     <li><a href="<?= htmlspecialchars($baseUrl, ENT_QUOTES) ?>/logout.php">Logout</a></li>
                 <?php else: ?>
                     <li><a href="<?= htmlspecialchars($baseUrl, ENT_QUOTES) ?>/login.php">Login</a></li>
