@@ -1,7 +1,7 @@
-CREATE DATABASE IF NOT EXISTS upc_mandaue CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+-- Use Railway's database (change if yours has a different name)
+USE railway;
 
-USE upc_mandaue;
-
+-- Create tables
 CREATE TABLE IF NOT EXISTS pages (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     slug VARCHAR(100) NOT NULL UNIQUE,
@@ -29,7 +29,12 @@ CREATE TABLE IF NOT EXISTS contact_messages (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Seed default pages
 INSERT IGNORE INTO pages (slug, title, content) VALUES
 ('home', 'Welcome to UPC Mandaue', 'This is the home page content. You can edit this text from the database.'),
 ('about', 'About UPC Mandaue', 'This is the about page content. Describe the organization here.'),
 ('contact', 'Contact Us', 'This is the contact page content. Include address, phone, and email here.');
+
+-- Seed default admin user
+INSERT IGNORE INTO users (name, email, password_hash, role) VALUES
+('Admin', 'upcmap@example.com', 'the password', 'admin');
