@@ -3,8 +3,19 @@ services:
     name: upcmandaue
     env: docker
     plan: free
-    autoDeploy: true
+    dockerfilePath: ./Dockerfile
 
     envVars:
       - key: APP_BASE_URL
         value: https://upcmandaue.onrender.com
+
+      - key: DB_HOST
+        value: crossover.proxy.rlay.net       
+      - key: DB_PORT
+        value: "57145"                      
+      - key: DB_NAME
+        value: railway                        
+      - key: DB_USER
+        value: root                           
+      - key: DB_PASS
+        value: ouHKYnGzsYVcVsilBFqihvDAOEyVNFGi
