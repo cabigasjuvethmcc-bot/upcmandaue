@@ -27,6 +27,14 @@ include __DIR__ . '/../../includes/header.php';
             </ul>
             <p class="dashboard-meta">More tools like posts and contact messages will appear here as the site grows.</p>
         </article>
+        <article class="dashboard-card">
+            <h2>Member Management</h2>
+            <p class="page-content">Manage members, their families, and their Bible Study Groups.</p>
+            <ul class="dashboard-links">
+                <li><a class="dashboard-link" href="members-list.php">Members</a></li>
+                <li><a class="dashboard-link" href="bible-study-groups.php">Bible Study Groups</a></li>
+            </ul>
+        </article>
     </div>
 </section>
 
